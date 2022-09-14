@@ -34,10 +34,9 @@ const Home = () => {
 
     }
     return (
-        <div className=''>
+        <div className='home'>
 
-            <div id="boton" onClick={() => traer()}>traer</div>
-
+            <div className="lado_der">
                 <>
             {
                 pokemon.name
@@ -45,6 +44,17 @@ const Home = () => {
                 <img src={pokemon.img} />
                 
                 </>
+
+            <div id="boton" onClick={() => traer()}>traer</div>
+
+            </div>
+            
+            <div className="lado_izq">
+
+                que fue
+            </div>
+
+
 
         </div>
     )

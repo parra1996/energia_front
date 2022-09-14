@@ -1,3 +1,40 @@
+.home {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    height: 100vh;
+    width: 100vw;
+
+    background-color: beige;
+}
+
+.lado_izq {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 100vw;
+    width: 50%;
+
+    background-color: pink;
+}
+.lado_der {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 100vw;
+    width: 50%;
+
+    background-color: lightblue;
+}
+
 #boton {
     height: 2em;
     width: 3em;

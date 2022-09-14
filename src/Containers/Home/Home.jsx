@@ -1,18 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+
 import './Home.css';
 import axios from 'axios';
 
 const Home = () => {
 
-    const [datos, setDatos] = "";
+    const [pokemon, setPokemon] = useState({
+        name: "", img: ""
+    });
 
-    const traer = async () => {
+    useEffect(() => {
 
-        let res = await axios.get("http://localhost:5000/users/que");
 
-        console.log(res.data)
+        // traer();
+    }, []);
 
-        setDatos(res);
+
+    const traer = () => {
+
+        try {
+
+            axios.get("https://pokeapi.co/api/v2/pokemon/charmander").then(
+                (response) => {
+                    setPokemon({ name: response.data.name, img: response.data.sprites.front_default });
+
+                }
+            )
+
+        } catch (error) {
+            console.log(error);
+        }
+
 
     }
     return (
@@ -20,7 +38,14 @@ const Home = () => {
 
             <div id="boton" onClick={() => traer()}>traer</div>
 
-            {datos}
+                <>
+            {
+                pokemon.name
+            }
+                <img src={pokemon.img} />
+                
+                </>
+
         </div>
     )
 }

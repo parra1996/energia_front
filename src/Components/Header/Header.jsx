@@ -41,30 +41,18 @@ const Header = (props) => {
         return (
             <div className='header' onClick={()=>navigate('/')}>
                 <div className="headercitos">
-                    {/* <img className='homeButton' style={{pointer:'cursor'}} src={require('../../img/aguacte.png')} onClick={()=>navigate('/')} alt="home" /> */}
                     POKEAPI
                 </div>
                 <div className="headercitos">
-                {/* <div color='teal' style={{pointer:'cursor'}} onClick={() => navegar("/login")}>Login</div>&nbsp; */}
+                <div color='teal' style={{pointer:'cursor'}} onClick={() => navegar("/login")}>Login</div>&nbsp;
                 <div className='' onClick={() => navegar("/register")}>Register</div> 
                 </div>
                 <div className="headercitos">
                 </div>
             </div>
         )
-    }else if(props.credentials.usuario.rol === true){
-        return (
-            <div className='header' onClick={()=>navigate('/')}>
-                <div className="headercitos">
-                    POKEAPI
-                </div>
-                <div className="headercitos">
-                {/* <div color="teal" style={{pointer:'cursor'}} onClick={() => logOut()}>LogOut</div>&nbsp; */}
-                </div>
-                <div className="headercitos"></div>
-            </div>
-        )
-    } else {
+    }
+    else  {
         return (
             <div className='header'>
                 <div className="headercitos" onClick={()=>navigate('/')}> 
@@ -72,7 +60,7 @@ const Header = (props) => {
                 </div>
                 <div className="headercitos">
                 {/* <div color="teal" style={{pointer:'cursor'}} onClick={() => navegar("/perfil")}>{props.credentials?.usuario.nombre} {props.credentials?.usuario.apellido}</div>&nbsp; */}
-                {/* <div color="teal" style={{pointer:'cursor'}} onClick={() => logOut()}>LogOut</div>&nbsp; */}
+                <div color="teal" style={{pointer:'cursor'}} onClick={() => logOut()}>LogOut</div>&nbsp;
                 </div>
                 <div className="headercitos"></div>
             </div>

@@ -8,4 +8,3 @@ export const MODIFY_CREDENTIALS = 'modify_credentials';
 //////////////////////////////////////////
 
 export const RECETA_ESPECIFICA = 'receta especifica';
-// export const MOVIES_TITLE = 'movies_title';

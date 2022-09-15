@@ -65,7 +65,7 @@ const Register = () => {
                 console.log("regustrado")
 
                 setTimeout(() => {
-                    navigate('/home');
+                    navigate('/');
                 }, 3000);
             }
 

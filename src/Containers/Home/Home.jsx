@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 
 import './Home.css';
 import axios from 'axios';
+import Profile from '../../Components/Profile/Profile';
+import { connect } from 'react-redux';
 
-const Home = () => {
+
+const Home = (props) => {
 
     const [pokemones, setPokemones] = useState([]);
 
     useEffect(() => {
-        traer();
+        // traer();
     }, []);
 
     const traer = () => {
@@ -30,36 +33,87 @@ const Home = () => {
         }
 
     }
-    return (
-        <div className='home'>
 
-            <div className="lado_izq">
-                {
-                    pokemones.map((datica) => {
-                        return (
-                            <div className='cartas' key={datica.id}>
-                                nombre:{datica.name} <br />
-                                elemento:{datica.types[0].type.name} <br />
-                                ataque:{datica.stats[1].base_stat} <br />
-                                ataque especial:{datica.stats[3].base_stat} <br />
-                                vida:{datica.stats[0].base_stat} <br />
-                                velocidad:{datica.stats[5].base_stat} <br />
-                                defensa:{datica.stats[2].base_stat} <br />
-                                <img src={datica.sprites.front_default}></img>
-                            </div>
-                        )
-                    })
-                }
+    const adquirir = async (datica) => {
+
+        let body = {
+            _id: props.credentials.user._id ,
+            id_pokemon: datica.id,
+            imagen: datica.sprites.front_default,
+            nombre: datica.name,
+            elemento: datica.types[0].type.name,
+            vida: datica.stats[0].base_stat,
+            ataque: datica.stats[1].base_stat,
+            a_especial:datica.stats[3].base_stat ,
+            velocidad:datica.stats[5].base_stat,
+            defensa:datica.stats[2].base_stat
+        }
+        console.log(body)
+
+        let config = {
+            headers: { Authorization: `Bearer ${props.token}` }
+        };
+
+        try {
+
+            let res = await axios.post("http://localhost:5000/users/atrapar", body, config);
+
+            if (res) {
+
+                // console.log("lo atrape perro")
+                // setTimeout(() => {
+                //     navigate('/');
+                // }, 3000);
+            } else {
+                console.log("huno un peo")
+                // setTimeout(() => {
+                //     navigate('/');
+                // }, 3000);
+            }
+
+        } catch (error) {
+            console.log(error)
+
+        }}
+
+
+        return (
+            <div className='home'>
+
+                <div className="lado_izq">
+                    {
+                        pokemones.map((datica) => {
+                            return (
+                                <div className='cartas' key={datica.id}>
+                                    nombre:{datica.name} <br />
+                                    elemento:{datica.types[0].type.name} <br />
+                                    ataque:{datica.stats[1].base_stat} <br />
+                                    ataque especial:{datica.stats[3].base_stat} <br />
+                                    vida:{datica.stats[0].base_stat} <br />
+                                    velocidad:{datica.stats[5].base_stat} <br />
+                                    defensa:{datica.stats[2].base_stat} <br />
+                                    <img src={datica.sprites.front_default}></img> <br />
+                                    <div className="traer_pok" onClick={()=> adquirir(datica)}></div>
+                                </div>
+                            )
+                        })
+
+                    }
+                    <div id="boton" onClick={() => traer()}>traer pokes</div>
+                </div>
+
+                <div className="lado_der">
+
+                    TU PERFIL
+                    <Profile />
+                </div>
+
+
+
             </div>
-
-            <div className="lado_der">
-
-                que fue
-            </div>
-
-
-
-        </div>
-    )
-}
-export default Home;
+        )
+    }
+    
+    export default connect((state) => ({
+        credentials: state.credentials
+    }))(Home);

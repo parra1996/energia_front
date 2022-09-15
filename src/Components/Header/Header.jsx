@@ -41,12 +41,12 @@ const Header = (props) => {
     if (!props.credentials?.token) {
         return (
             <div className='header' onClick={()=>navigate('/')}>
-                <div className="headercitos">
-                    POKEAPI
+                <div className="headercitos" style={{color : "blue"}}>
+                    pokeAPI
                 </div>
                 <div className="headercitos">
-                <Button color='teal' style={{pointer:'cursor'}} onClick={() => navegar("/login")}>Login</Button>&nbsp;
-                <Button color='red' onClick={() => navegar("/register")}>Register</Button> 
+                <Button color='demo' style={{pointer:'cursor'}} onClick={() => navegar("/login")}>Login</Button>&nbsp;
+                <Button color='demo' onClick={() => navegar("/register")}>Register</Button> 
                 </div>
                 <div className="headercitos">
                 </div>
@@ -56,11 +56,11 @@ const Header = (props) => {
     else  {
         return (
             <div className='header'>
-                <div className="headercitos" onClick={()=>navigate('/')}> 
-                    POKEAPI
+                <div className="headercitos" style={{color : "blue"}} onClick={()=>navigate('/')}> 
+                    pokeAPI
                 </div>
                 <div className="headercitos">
-                <Button color="red"  onClick={() => logOut()}>LogOut</Button>&nbsp;
+                <Button color="demo"  onClick={() => logOut()}>LogOut</Button>&nbsp;
                 </div>
                 <div className="headercitos"></div>
             </div>

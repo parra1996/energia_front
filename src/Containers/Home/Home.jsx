@@ -117,9 +117,7 @@ const Home = (props) => {
             </div>
 
             <div className="lado_der">
-
-                TU PERFIL
-                <Profile />
+                    <Profile />
             </div>
 
 

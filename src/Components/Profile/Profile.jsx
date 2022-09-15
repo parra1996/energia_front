@@ -123,7 +123,7 @@ const Perfil = (props) => {
                         <div variant='success'><b>usuario nuevo:</b><input className='inp' type="text" name="userName" id="userName" title="userName" placeholder="usuario nuevo" autoComplete="off" onChange={(e) => { rellenarDatos2(e) }} /></div>
                         <div variant='success'><b>Contraseña nueva:</b><input className='inp' type="text" name="password" id="password" title="password" placeholder="contraseña nueva" autoComplete="off" onChange={(e) => { rellenarDatos2(e) }} /></div>
                         {/* </ListGroup><br /> */}
-                        <Button variant="outline-success" onClick={() => updateUser()}>Actualizar datos</Button>
+                        <Button color="demo" onClick={() => updateUser()}>Actualizar datos</Button>
                     </div>
                 </div>
                 <div className="">
@@ -132,7 +132,6 @@ const Perfil = (props) => {
                     {
                         pokes.map(results => {
                             return (
-
                                 <Card shadow="sm" p="lg" radius="md" withBorder className='card'>
                                 <Card.Section>
                                     <Image

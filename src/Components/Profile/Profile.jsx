@@ -13,8 +13,6 @@ const Perfil = (props) => {
 
     let navigate = useNavigate();
 
-    // const [recetas_adquiridas, setRecetas_adquiridas] = useState([]);
-
     const [contrasena, setContrasena] = useState({
         claveAnterior: undefined,
         claveNueva: undefined,
@@ -23,8 +21,10 @@ const Perfil = (props) => {
     //Hooks
     const [datosUsuario, setDatosUsuario] = useState({
         userName: '',
-        password : '' 
+        password: ''
     });
+
+    const [pokes, setPokes] = useState([])
 
     // const rellenarDatos = (e) => {
     //     setDatosUsuario({
@@ -40,13 +40,9 @@ const Perfil = (props) => {
         })
     };
 
-    // useEffect(() => {
-    //     if (props.credentials.token === '') {
-    //         navigate("/");
-    //     }
-
-    //     // mostrarPedido();
-    // }, [])
+    useEffect(() => {
+        // mostrar(props.credentials.user._id);
+    }, [])
 
     useEffect(() => {
     }, [props.credentials.user])
@@ -132,16 +128,33 @@ const Perfil = (props) => {
             let res = await axios.put(`http://localhost:5000/users/`, body, config);
             if (res) {
                 console.log("datos cambiados")
-            //     setTimeout(() => {
-            //         window.location.reload();
+                //     setTimeout(() => {
+                //         window.location.reload();
 
-            //     }, 2000);
+                //     }, 2000);
             }
         } catch (error) {
             console.log(error)
         }
 
     }
+
+    const mostrar = async () => {
+
+        let _id = props.credentials.user._id
+
+        try {
+
+            let res = await axios.post(`http://localhost:5000/users/mostrar/${_id}`,);
+            setPokes(res.data);
+            console.log(res, "ESTO ES POKW")
+            console.log(_id, "ESTO ES ODY")
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
 
 
 
@@ -160,28 +173,27 @@ const Perfil = (props) => {
                 </div>
                 <div className="recetas_fav">
 
-                    {/* <Accordion defaultActiveKey="0" >
-                        <Accordion.Item eventKey="0">
-                            <Accordion.Header>Lista de tus recetas favorita {props.credentials.usuario.nombre}</Accordion.Header>
-                            <Accordion.Body className='acordeon' >
-                                {
-                                    recetas_adquiridas.map(results => {
-                                        return (
-                                            <div className="pedidos2" key={results.id}>
-                                                <img className='cartel3' src={results.imagen} alt=''></img>
-                                                <p>
-                                                    Nombre: {results.nombre}.
-                                                </p>
-                                                <Button variant="danger" onClick={() => borrar_pedido(results.id)}>borrar receta</Button>
-                                                <br /><br />
-                                            </div>
-                                        )
-                                    })
-                                }
-    
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion> */}
+                    <div className="mostrar" onClick={() => mostrar(props.credentials.user._id)}></div>
+                    {
+                        pokes.map(results => {
+                            return (
+                                <div className="" key={results._id}>
+                                    <img className='' src={results.imagen} alt='pokemon'></img>
+                                    <p>
+                                        nombre:{results.nombre} <br />
+                                        elemento:{results.elemento} <br />
+                                        ataque:{results.ataque} <br />
+                                        ataque especial:{results.a_especial} <br />
+                                        vida:{results.vida} <br />
+                                        velocidad:{results.velocidad} <br />
+                                        defensa:{results.defensa} <br />
+                                    </p>
+                                    {/* <Button variant="danger" onClick={() => borrar_pedido(results.id)}>borrar receta</Button> */}
+                                    <br /><br />
+                                </div>
+                            )
+                        })
+                    }
                 </div>
 
                 <div>

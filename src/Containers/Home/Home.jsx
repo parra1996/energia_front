@@ -4,15 +4,15 @@ import './Home.css';
 import axios from 'axios';
 import Profile from '../../Components/Profile/Profile';
 import { connect } from 'react-redux';
-import { Button, Card,Text, Image} from '@mantine/core';
+import { Button, Card, Text, Image } from '@mantine/core';
 
 
 const Home = (props) => {
 
     const [pokemones, setPokemones] = useState([]);
+    const [msjerror, setMsjerror] = useState("");
 
     useEffect(() => {
-        // traer();
     }, []);
 
     const traer = () => {
@@ -36,6 +36,9 @@ const Home = (props) => {
     }
 
     const adquirir = async (datica) => {
+        
+    let disponible = props.credentials.user.pokemons.length;
+    let numero = Math.random();
 
         let body = {
             _id: props.credentials.user._id,
@@ -49,32 +52,27 @@ const Home = (props) => {
             velocidad: datica.stats[5].base_stat,
             defensa: datica.stats[2].base_stat
         }
-        console.log(body)
 
-        let config = {
-            headers: { Authorization: `Bearer ${props.token}` }
-        };
+        console.log(numero, "NUMERO", disponible, "dispo")
+        if(disponible < 5){
 
-        try {
-
-            let res = await axios.post("http://localhost:5000/users/atrapar", body, config);
-
-            if (res) {
-
-                // console.log("lo atrape perro")
-                // setTimeout(() => {
-                //     navigate('/');
-                // }, 3000);
-            } else {
-                console.log("huno un peo")
-                // setTimeout(() => {
-                //     navigate('/');
-                // }, 3000);
+            try {
+                console.log("entrmos")
+    
+                let res = await axios.post("http://localhost:5000/users/atrapar", body);
+    
+                if (res) {
+                    console.log("lo atrape perro")
+                } else {
+                    console.log("huno un peo")
+                }
+    
+            } catch (error) {
+                console.log(error)
+    
             }
-
-        } catch (error) {
-            console.log(error)
-
+        }else {
+            console.log("tienes muchos pokes")
         }
     }
 
@@ -96,17 +94,17 @@ const Home = (props) => {
                                     />
                                 </Card.Section>
                                 <Text size="sm" color="dimmed">
-                                nombre:{datica.name} <br />
-                                elemento:{datica.types[0].type.name} <br />
-                                ataque:{datica.stats[1].base_stat} <br />
-                                ataque especial:{datica.stats[3].base_stat} <br />
-                                vida:{datica.stats[0].base_stat} <br />
-                                velocidad:{datica.stats[5].base_stat} <br />
-                                defensa:{datica.stats[2].base_stat} <br />
+                                    nombre:{datica.name} <br />
+                                    elemento:{datica.types[0].type.name} <br />
+                                    ataque:{datica.stats[1].base_stat} <br />
+                                    ataque especial:{datica.stats[3].base_stat} <br />
+                                    vida:{datica.stats[0].base_stat} <br />
+                                    velocidad:{datica.stats[5].base_stat} <br />
+                                    defensa:{datica.stats[2].base_stat} <br />
                                 </Text>
 
-                                <Button variant="light" color="teal" fullWidth mt="md" radius="md" onClick={()=>adquirir(datica)}>
-                                 atrapar
+                                <Button variant="light" color="teal" fullWidth mt="md" radius="md" onClick={() => adquirir(datica)}>
+                                    atrapar
                                 </Button>
                             </Card>
                         )
@@ -117,7 +115,7 @@ const Home = (props) => {
             </div>
 
             <div className="lado_der">
-                    <Profile />
+                <Profile />
             </div>
 
 

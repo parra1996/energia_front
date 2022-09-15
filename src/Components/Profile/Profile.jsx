@@ -113,6 +113,12 @@ const Perfil = (props) => {
 
     }
 
+    let disponible = props.credentials.user.pokemons.length;
+
+    switch(disponible){
+        case disponible < 1:
+    }
+
     if (props.credentials.token) {
         return (
             <div className="perfil">
@@ -141,18 +147,14 @@ const Perfil = (props) => {
                                     />
                                 </Card.Section>
                                 <Text size="sm" color="dimmed">
-                                nombre:{results.nombre} <br />
-                                elemento:{results.elemento} <br />
-                                ataque:{results.ataque} <br />
-                                ataque especial:{results.a_especial} <br />
-                                vida:{results.vida} <br />
-                                velocidad:{results.velocidad} <br />
-                                defensa:{results.defensa} <br />
+                                nombre :{results.nombre} <br />
+                                elemento: {results.elemento} <br />
+                                ataque: {results.ataque} <br />
+                                ataque especial: {results.a_especial} <br />
+                                vida: {results.vida} <br />
+                                velocidad: {results.velocidad} <br />
+                                defensa: {results.defensa} <br />
                                 </Text>
-
-                                {/* <Button variant="light" color="teal" fullWidth mt="md" radius="md" onClick={()=>()}> */}
-                                 {/* atrapar */}
-                                {/* </Button> */}
                             </Card>
                             )
                         })

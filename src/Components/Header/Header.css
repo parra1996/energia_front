@@ -1,0 +1,15 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+
+    background-color: lightblue;
+    height: 4.8em;
+}
+
+.register {
+
+    margin: 1em ; 
+}

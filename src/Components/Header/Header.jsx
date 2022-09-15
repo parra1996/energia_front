@@ -3,10 +3,22 @@ import React, { useEffect, useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { LOGOUT } from '../../redux/types';
 import { connect } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import './Header.css';
 
 const Header = (props) => {
+
+    let navigate = useNavigate();
+
+
+    const navegar = (lugar) => {
+
+        setTimeout(() => {
+            navigate(lugar);
+        }, 200);
+
+    }
 
 
     const [nombre, setNombre] = useState("");
@@ -27,15 +39,14 @@ const Header = (props) => {
     
     if (!props.credentials?.token) {
         return (
-            <div className='header'>
+            <div className='header' onClick={()=>navigate('/')}>
                 <div className="headercitos">
                     {/* <img className='homeButton' style={{pointer:'cursor'}} src={require('../../img/aguacte.png')} onClick={()=>navigate('/')} alt="home" /> */}
-                    healthyByC
+                    POKEAPI
                 </div>
                 <div className="headercitos">
-                {/* <div color='teal' style={{pointer:'cursor'}} onClick={() => navegar("/recetas")}>Recetas</div>&nbsp; */}
                 {/* <div color='teal' style={{pointer:'cursor'}} onClick={() => navegar("/login")}>Login</div>&nbsp; */}
-                {/* <div color='teal' style={{pointer:'cursor'}} onClick={() => navegar("/register")}>Register</div>  */}
+                <div className='' onClick={() => navegar("/register")}>Register</div> 
                 </div>
                 <div className="headercitos">
                 </div>
@@ -43,16 +54,12 @@ const Header = (props) => {
         )
     }else if(props.credentials.usuario.rol === true){
         return (
-            <div className='header'>
+            <div className='header' onClick={()=>navigate('/')}>
                 <div className="headercitos">
-                    {/* <img className='homeButton'src={require('../../img/aguacte.png')} onClick={()=>navigate('/')} alt="home" /> */}
-                    healthyByC
+                    POKEAPI
                 </div>
                 <div className="headercitos">
-                {/* <div color="teal" style={{pointer:'cursor'}} onClick={() => navegar("/perfil")}>{props.credentials?.usuario.nombre} {props.credentials?.usuario.apellido}</div>&nbsp; */}
-                {/* <div color="teal" style={{pointer:'cursor'}} onClick={() => navegar("/recetas")}>Recetas</div>&nbsp; */}
                 {/* <div color="teal" style={{pointer:'cursor'}} onClick={() => logOut()}>LogOut</div>&nbsp; */}
-                {/* <div color="teal" style={{pointer:'cursor'}} onClick={() => navegar('/admin')}>Admin</div>&nbsp; */}
                 </div>
                 <div className="headercitos"></div>
             </div>
@@ -60,13 +67,11 @@ const Header = (props) => {
     } else {
         return (
             <div className='header'>
-                <div className="headercitos">
-                    {/* <img className='homeButton'src={require('../../img/aguacte.png')} onClick={()=>navigate('/')} alt="home" /> */}
-                    healthyByC
+                <div className="headercitos" onClick={()=>navigate('/')}> 
+                    POKEAPI
                 </div>
                 <div className="headercitos">
                 {/* <div color="teal" style={{pointer:'cursor'}} onClick={() => navegar("/perfil")}>{props.credentials?.usuario.nombre} {props.credentials?.usuario.apellido}</div>&nbsp; */}
-                {/* <div color="teal" style={{pointer:'cursor'}} onClick={() => navegar("/recetas")}>Recetas</div>&nbsp; */}
                 {/* <div color="teal" style={{pointer:'cursor'}} onClick={() => logOut()}>LogOut</div>&nbsp; */}
                 </div>
                 <div className="headercitos"></div>

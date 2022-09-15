@@ -4,6 +4,7 @@ import './Home.css';
 import axios from 'axios';
 import Profile from '../../Components/Profile/Profile';
 import { connect } from 'react-redux';
+import { Button, Card,Text, Image} from '@mantine/core';
 
 
 const Home = (props) => {
@@ -37,16 +38,16 @@ const Home = (props) => {
     const adquirir = async (datica) => {
 
         let body = {
-            _id: props.credentials.user._id ,
+            _id: props.credentials.user._id,
             id_pokemon: datica.id,
             imagen: datica.sprites.front_default,
             nombre: datica.name,
             elemento: datica.types[0].type.name,
             vida: datica.stats[0].base_stat,
             ataque: datica.stats[1].base_stat,
-            a_especial:datica.stats[3].base_stat ,
-            velocidad:datica.stats[5].base_stat,
-            defensa:datica.stats[2].base_stat
+            a_especial: datica.stats[3].base_stat,
+            velocidad: datica.stats[5].base_stat,
+            defensa: datica.stats[2].base_stat
         }
         console.log(body)
 
@@ -74,46 +75,59 @@ const Home = (props) => {
         } catch (error) {
             console.log(error)
 
-        }}
-
-
-        return (
-            <div className='home'>
-
-                <div className="lado_izq">
-                    {
-                        pokemones.map((datica) => {
-                            return (
-                                <div className='cartas' key={datica.id}>
-                                    nombre:{datica.name} <br />
-                                    elemento:{datica.types[0].type.name} <br />
-                                    ataque:{datica.stats[1].base_stat} <br />
-                                    ataque especial:{datica.stats[3].base_stat} <br />
-                                    vida:{datica.stats[0].base_stat} <br />
-                                    velocidad:{datica.stats[5].base_stat} <br />
-                                    defensa:{datica.stats[2].base_stat} <br />
-                                    <img src={datica.sprites.front_default}></img> <br />
-                                    <div className="traer_pok" onClick={()=> adquirir(datica)}></div>
-                                </div>
-                            )
-                        })
-
-                    }
-                    <div id="boton" onClick={() => traer()}>traer pokes</div>
-                </div>
-
-                <div className="lado_der">
-
-                    TU PERFIL
-                    <Profile />
-                </div>
-
-
-
-            </div>
-        )
+        }
     }
-    
-    export default connect((state) => ({
-        credentials: state.credentials
-    }))(Home);
+
+
+    return (
+        <div className='home'>
+
+            <div className="lado_izq">
+                {
+                    pokemones.map((datica) => {
+                        return (
+
+                            <Card shadow="sm" p="lg" radius="md" withBorder className='card'>
+                                <Card.Section>
+                                    <Image
+                                        src={datica.sprites.front_default}
+                                        height={160}
+                                        alt="Norway"
+                                    />
+                                </Card.Section>
+                                <Text size="sm" color="dimmed">
+                                nombre:{datica.name} <br />
+                                elemento:{datica.types[0].type.name} <br />
+                                ataque:{datica.stats[1].base_stat} <br />
+                                ataque especial:{datica.stats[3].base_stat} <br />
+                                vida:{datica.stats[0].base_stat} <br />
+                                velocidad:{datica.stats[5].base_stat} <br />
+                                defensa:{datica.stats[2].base_stat} <br />
+                                </Text>
+
+                                <Button variant="light" color="teal" fullWidth mt="md" radius="md" onClick={()=>adquirir(datica)}>
+                                 atrapar
+                                </Button>
+                            </Card>
+                        )
+                    })
+
+                }
+                <div id="boton" onClick={() => traer()}>traer pokes</div>
+            </div>
+
+            <div className="lado_der">
+
+                TU PERFIL
+                <Profile />
+            </div>
+
+
+
+        </div>
+    )
+}
+
+export default connect((state) => ({
+    credentials: state.credentials
+}))(Home);

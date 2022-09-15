@@ -1,11 +1,11 @@
 .home {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 
-    height: 100vh;
     width: 100vw;
+    height: 100vh;
 
     background-color: beige;
 }
@@ -13,26 +13,27 @@
 .lado_izq {
 
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 
-    height: 100vh;
+
+    height: auto;
     width: 50%;
 
-    background-color: pink;
+    background-color: beige;
 }
 .lado_der {
 
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 
     height: auto;
     width: 50%;
 
-    background-color: lightblue;
+    background-color: beige;
 }
 
 #boton {
@@ -42,9 +43,6 @@
     background-color: green;
 }
 
-.traer_pok {
-    height: 2em;
-    width: 2em;
-
-    background-color: brown;
+.card {
+    margin: 1em;
 }

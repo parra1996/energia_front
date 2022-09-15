@@ -9,6 +9,18 @@
     height: 4.8em;
 }
 
+.headercitos {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    width: 33.33em;
+
+    color: whitesmoke;
+    font-size: large;
+    font-weight: bold;
+}
 .register {
 
     margin: 1em ; 

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { MODIFY_CREDENTIALS } from '../../redux/types';
 import axios from 'axios';
 
-import { Button } from '@mantine/core';
+import { Button,Image,Text,Card } from '@mantine/core';
 
 import "./Profile.css";
 
@@ -47,14 +47,14 @@ const Perfil = (props) => {
     useEffect(() => {
     }, [props.credentials.user])
 
-    // const borrar_pedido = async (id) => {
+    // const liberarPoke = async (id) => {
 
     //     try {
     //         let config = {
     //             headers: { Authorization: `Bearer ${props.credentials.token}` }
     //         };
 
-    //         let res = axios.delete(`https://jppl-hbc-back.herokuapp.com/receta_adquirida/${id}`, config)
+    //         let res = axios.delete(`http://localhost:5000/users/`, config)
     //         if (res) {
     //         console.log("poke eliminado con exito")
 
@@ -66,48 +66,6 @@ const Perfil = (props) => {
     //     } catch (error) {
     //         console.log("error");
     //     }
-
-
-    // }
-
-    // const mostrarPedido = async () => {
-
-    //     let config = {
-    //         headers: { Authorization: `Bearer ${props.credentials.token}` }
-    //     };
-
-    //     let id = props.credentials.usuario.id;
-
-    //     let res = await axios.get(`https://jppl-hbc-back.herokuapp.com/receta_adquirida/${id}`, config);
-
-    //     setRecetas_adquiridas(res.data);
-    // }
-
-    // const updateUser = async () => {
-
-    //     let config = {
-    //         headers: { Authorization: `Bearer ${props.credentials.token}` }
-    //     };
-
-    //     let body = {
-    //         id: props.credentials.usuario.id,
-    //         userName: props.credentials.usuario.contrasena,
-    //         newPassword: datosUsuario.newPassword,
-    //     }
-    //     try {
-    //         //Hacemos el update en la base de datos
-    //         let res = await axios.put(`http://localhost:5000/users/`, body, config);
-    //         if (res) {
-    //            console.log("usuario actualizado")
-    //             setTimeout(() => {
-    //                 window.location.reload();
-
-    //             }, 2000);
-    //         }
-    //     } catch (error) {
-    //         console.log(error)
-    //     }
-
     // }
 
     const updateUser = async () => {
@@ -155,9 +113,6 @@ const Perfil = (props) => {
 
     }
 
-
-
-
     if (props.credentials.token) {
         return (
             <div className="perfil">
@@ -171,26 +126,35 @@ const Perfil = (props) => {
                         <Button variant="outline-success" onClick={() => updateUser()}>Actualizar datos</Button>
                     </div>
                 </div>
-                <div className="recetas_fav">
+                <div className="">
 
-                    <div className="mostrar" onClick={() => mostrar(props.credentials.user._id)}></div>
+                    <Button color="teal" onClick={() => mostrar(props.credentials.user._id)}></Button>
                     {
                         pokes.map(results => {
                             return (
-                                <div className="" key={results._id}>
-                                    <img className='' src={results.imagen} alt='pokemon'></img>
-                                    <p>
-                                        nombre:{results.nombre} <br />
-                                        elemento:{results.elemento} <br />
-                                        ataque:{results.ataque} <br />
-                                        ataque especial:{results.a_especial} <br />
-                                        vida:{results.vida} <br />
-                                        velocidad:{results.velocidad} <br />
-                                        defensa:{results.defensa} <br />
-                                    </p>
-                                    {/* <Button variant="danger" onClick={() => borrar_pedido(results.id)}>borrar receta</Button> */}
-                                    <br /><br />
-                                </div>
+
+                                <Card shadow="sm" p="lg" radius="md" withBorder className='card'>
+                                <Card.Section>
+                                    <Image
+                                        src={results.imagen}
+                                        height={160}
+                                        alt=""
+                                    />
+                                </Card.Section>
+                                <Text size="sm" color="dimmed">
+                                nombre:{results.nombre} <br />
+                                elemento:{results.elemento} <br />
+                                ataque:{results.ataque} <br />
+                                ataque especial:{results.a_especial} <br />
+                                vida:{results.vida} <br />
+                                velocidad:{results.velocidad} <br />
+                                defensa:{results.defensa} <br />
+                                </Text>
+
+                                {/* <Button variant="light" color="teal" fullWidth mt="md" radius="md" onClick={()=>()}> */}
+                                 {/* atrapar */}
+                                {/* </Button> */}
+                            </Card>
                             )
                         })
                     }
@@ -204,9 +168,6 @@ const Perfil = (props) => {
     } else {
         <p>logueate </p>
     }
-
-
-
 }
 
 export default connect((state) => ({

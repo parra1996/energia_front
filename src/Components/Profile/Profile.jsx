@@ -113,11 +113,11 @@ const Perfil = (props) => {
 
     }
 
-    let disponible = props.credentials.user.pokemons.length;
+    // let disponible = props.credentials.user.pokemons?.length;
 
-    switch(disponible){
-        case disponible < 1:
-    }
+    // switch(disponible){
+    //     case disponible < 1:
+    // }
 
     if (props.credentials.token) {
         return (

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-//REDUX...
 import { connect } from 'react-redux';
 import { LOGIN } from '../../redux/types';
 
@@ -59,7 +58,7 @@ const Login = (props) => {
                     {msgError2}
                 </div><br />
                 <div className="bott">
-                    <Button color="teal" onClick={() => { login() }} >
+                    <Button color="demo" onClick={() => { login() }} >
                         Login
                     </Button>
                 </div>

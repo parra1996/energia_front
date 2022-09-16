@@ -13,6 +13,8 @@ const Home = (props) => {
     const [msjerror, setMsjerror] = useState("");
 
     useEffect(() => {
+
+        traer();
     }, []);
 
     const traer = () => {
@@ -111,7 +113,7 @@ const Home = (props) => {
                     })
 
                 }
-                <div id="boton" onClick={() => traer()}>traer pokes</div>
+                {/* <div id="boton" onClick={() => traer()}>traer pokes</div> */}
             </div>
 
             <div className="lado_der">

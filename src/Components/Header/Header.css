@@ -6,7 +6,8 @@
 
 
     background-color: yellow;
-    height: 4.8em;
+    height: 5em;
+    width: 100vw;
 }
 
 .headercitos {
@@ -20,8 +21,4 @@
     color: whitesmoke;
     font-size: large;
     font-weight: bold;
-}
-.register {
-
-    margin: 1em ; 
 }

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 // import { checkError } from '../../tools';
 
 import { Input } from '@mantine/core';
-// import { Button } from '@mantine/core';
+import { Button } from '@mantine/core';
 
 import './Register.css';
 
@@ -81,9 +81,9 @@ const Register = () => {
             <Input variant="default" style={{ padding: '.5em' }} name="userName" placeholder="userName" color='teal' onChange={(e) => { rellenarDatos(e) }} />
             <Input variant="default" style={{ padding: '.5em' }} name="password" placeholder="password" color='teal' onChange={(e) => { rellenarDatos(e) }} />
             <Input variant="default" style={{ padding: '.5em' }} name="password2" placeholder="password2" color='teal' onChange={(e) => { rellenarDatos(e) }} />
-            <div className='boton' onClick={() => registrame()}>
+            <Button className='boton' onClick={() => registrame()}>
                 registrame
-            </div> <br />
+            </Button> <br />
             <p> {msgError} </p>
         </div >
     )

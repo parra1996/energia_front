@@ -1,6 +1,5 @@
 
 import React, { useEffect, useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
 import { LOGOUT } from '../../redux/types';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -12,21 +11,17 @@ const Header = (props) => {
 
     let navigate = useNavigate();
 
-
     const navegar = (lugar) => {
 
         setTimeout(() => {
             navigate(lugar);
         }, 200);
-
     }
-
 
     const [nombre, setNombre] = useState("");
 
     useEffect(() => {
     },[])
-    
 
     const logOut = () => {
         props.dispatch({ type: LOGOUT });
@@ -56,7 +51,7 @@ const Header = (props) => {
     else  {
         return (
             <div className='header'>
-                <div className="headercitos" style={{color : "blue"}} onClick={()=>navigate('/')}> 
+                <div className="headercitos" style={{color : "blue", cursor : "pointer"}} onClick={()=>navigate('/')}> 
                     pokeAPI
                 </div>
                 <div className="headercitos">

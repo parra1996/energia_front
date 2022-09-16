@@ -16,7 +16,7 @@ const Home = (props) => {
     useEffect(() => {
         traer()
     }, []);
-   
+
     const traer = () => {
 
         try {
@@ -38,9 +38,8 @@ const Home = (props) => {
     }
 
     const adquirir = async (datica) => {
-        
-    let disponible = props.credentials.user.pokemons.length;
-    let numero = Math.random();
+
+        let disponible = props.credentials.user.pokemons.length;
 
         let body = {
             _id: props.credentials.user._id,
@@ -55,14 +54,13 @@ const Home = (props) => {
             defensa: datica.stats[2].base_stat
         }
 
-        console.log(numero, "NUMERO", disponible, "dispo")
-        if(disponible < 5){
-
+        console.log(disponible, "dispo")
+        if (disponible < 5) {
             try {
                 console.log("entrmos")
-    
+
                 let res = await axios.post("http://localhost:5000/users/atrapar", body);
-    
+
                 if (res) {
                     console.log("atrapado")
                     setMsj("POKEMON ATRAPADO")
@@ -70,24 +68,38 @@ const Home = (props) => {
                         window.location.reload()
                     }, 2000);
                 } else {
-                    console.log("huno un peo")
+                    setMsjerr("tienes muchos pokemons")
                 }
-    
+
             } catch (error) {
                 console.log(error)
-    
+
             }
-        }else {
+        } else {
             console.log("tienes muchos pokes")
         }
     }
+
+    function probability(n) {
+        return Math.random() < n;
+    }
+
+    var x = 0;
+    var prob = 0.86;
+    for (let i = 0; i < 10000000; i++) {
+        if (probability(prob)) {
+            x += 1;
+        }
+    }
+    console.log(`${x} of 10000000 given results by "Math.random()" were under ${prob}`);
+    console.log(`Hence so, a probability of ${x / 100000} %`);
 
 
     return (
         <div className='home'>
             <div className="lado_izq">
-            {msj}
-            {
+                {msj}
+                {
                     pokemones.map((datica) => {
                         return (
                             <Card shadow="sm" p="lg" radius="md" withBorder className='card'>
@@ -116,7 +128,7 @@ const Home = (props) => {
                 }
             </div>
             <div className="lado_der">
-                <Profile/>
+                <Profile />
             </div>
         </div>
     )

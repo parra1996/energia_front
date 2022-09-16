@@ -54,11 +54,10 @@ const Login = (props) => {
                 <div className="form">
                     <Input type="email" name="userName" id="userName" placeholder="userName" onChange={(e) => { rellenarDatos(e) }} /> <br />
                     <Input type="password" name="password" id="password" title="password" placeholder="password" autoComplete="off" onChange={(e) => { rellenarDatos(e); }} />
-                    {/* {msgError} */}
                     {msgError2}
                 </div><br />
                 <div className="bott">
-                    <Button color="demo" onClick={() => { login() }} >
+                    <Button color="yellow" onClick={() => { login() }} >
                         Login
                     </Button>
                 </div>

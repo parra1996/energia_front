@@ -62,7 +62,7 @@ const Register = () => {
             if (!resultado.data.error) {
 
                 // setMsgError(resultado.data.error);
-                console.log("regustrado")
+                setMsgError("Registrado")
 
                 setTimeout(() => {
                     navigate('/');

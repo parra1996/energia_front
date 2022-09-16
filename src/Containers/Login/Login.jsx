@@ -33,7 +33,7 @@ const Login = (props) => {
             if (resultado.data === "Usuario o contraseña inválido") {
                 setMsgError2("Usuario o contraseña inválido")
             } else {
-                console.log("logueado")
+                setMsgError2("logueado")
                 props.dispatch({ type: LOGIN, payload: resultado.data });
                 navigate("/");
             }

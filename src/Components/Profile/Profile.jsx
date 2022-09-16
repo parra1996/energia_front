@@ -68,12 +68,10 @@ const Perfil = (props) => {
             password: datosUsuario.password,
         }
 
-        console.log(body)
         try {
             //Hacemos el update en la base de datos
             let res = await axios.put(`http://localhost:5000/users/`, body);
             if (res) {
-                console.log(res, "esto es res")
                 setDatosUsuario(body.userName,body.password)
                 setMensaje("datos actualizados con exito")
                 //     setTimeout(() => {
@@ -81,10 +79,10 @@ const Perfil = (props) => {
 
                 //     }, 2000);
             }else {
-                console.log("hubo un problema")
+                setMensaje("hubo un problema")
             }
         } catch (error) {
-            console.log(error)
+            setMensaje(error)
         }
 
     }
@@ -97,10 +95,8 @@ const Perfil = (props) => {
 
             let res = await axios.post(`http://localhost:5000/users/mostrar/${_id}`,);
             setPokes(res.data);
-            console.log(res, "ESTO ES POKW")
-            console.log(_id, "ESTO ES ODY")
         } catch (error) {
-            console.log(error)
+            setMensaje(error)
         }
 
     }

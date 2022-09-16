@@ -27,12 +27,11 @@ const Home = (props) => {
                         axios.get(resp.data.results[i].url)
                             .then(result => {
                                 setPokemones(prevArray => [...prevArray, result.data])
-                                console.log(result.data)
                             })
                     }
                 })
         } catch (error) {
-            console.log(error);
+            setMsjerr(error);
         }
 
     }
@@ -54,10 +53,8 @@ const Home = (props) => {
         }
 
             try {
-                console.log("entrmos")
                 let res = await axios.post("http://localhost:5000/users/atrapar", body);
                 if (res) {
-                    console.log("atrapado")
                     setMsj("POKEMON ATRAPADO")
                     setTimeout(() => {
                         window.location.reload()
@@ -66,9 +63,12 @@ const Home = (props) => {
                     setMsjerr("tienes muchos pokemons")
                 }
             } catch (error) {
-                console.log(error)
+                setMsjerr(error)
             }
     }
+
+    let disponible = props.credentials.user.pokemons.length;
+   
 
     return (
         <div className='home'>

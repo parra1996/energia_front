@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { MODIFY_CREDENTIALS } from '../../redux/types';
 import axios from 'axios';
 
 import { Button,Image,Text,Card, Input } from '@mantine/core';
@@ -13,15 +12,10 @@ const Perfil = (props) => {
 
     let navigate = useNavigate();
 
-    const [contrasena, setContrasena] = useState({
-        claveAnterior: undefined,
-        claveNueva: undefined,
-    })
     const [pokes, setPokes] = useState([])
 
     const [mensaje, setMensaje] = useState("")
 
-    //Hooks
     const [datosUsuario, setDatosUsuario] = useState({
         userName: '',
         password: ''

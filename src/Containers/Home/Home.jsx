@@ -36,10 +36,9 @@ const Home = (props) => {
         }
 
     }
-
     const adquirir = async (datica) => {
 
-        let disponible = props.credentials.user.pokemons.length;
+        // disponible = props.credentials.user.pokemons.length;
 
         let body = {
             _id: props.credentials.user._id,
@@ -54,13 +53,9 @@ const Home = (props) => {
             defensa: datica.stats[2].base_stat
         }
 
-        console.log(disponible, "dispo")
-        if (disponible < 5) {
             try {
                 console.log("entrmos")
-
                 let res = await axios.post("http://localhost:5000/users/atrapar", body);
-
                 if (res) {
                     console.log("atrapado")
                     setMsj("POKEMON ATRAPADO")
@@ -70,30 +65,10 @@ const Home = (props) => {
                 } else {
                     setMsjerr("tienes muchos pokemons")
                 }
-
             } catch (error) {
                 console.log(error)
-
             }
-        } else {
-            console.log("tienes muchos pokes")
-        }
     }
-
-    function probability(n) {
-        return Math.random() < n;
-    }
-
-    var x = 0;
-    var prob = 0.86;
-    for (let i = 0; i < 10000000; i++) {
-        if (probability(prob)) {
-            x += 1;
-        }
-    }
-    console.log(`${x} of 10000000 given results by "Math.random()" were under ${prob}`);
-    console.log(`Hence so, a probability of ${x / 100000} %`);
-
 
     return (
         <div className='home'>

@@ -17,17 +17,13 @@ const Login = (props) => {
     const [datosUsuario, setDatosUsuario] = useState({ userName: "", password: "" });
     const [msgError2, setMsgError2] = useState("");
 
-    //Funciones handlers
     const rellenarDatos = (e) => {
         setDatosUsuario({ ...datosUsuario, [e.target.name]: e.target.value })
     };
 
-    //Funciones locales
-
     const login = async () => {
 
         try {
-
             let body = {
                 userName: datosUsuario.userName,
                 password: datosUsuario.password
@@ -41,14 +37,12 @@ const Login = (props) => {
                 props.dispatch({ type: LOGIN, payload: resultado.data });
                 navigate("/");
             }
-
         } catch (error) {
             console.log(error)
         }
     };
 
     return (
-
         <div className='login'>
             <div className="designFormulario">
                 <div className="form">
@@ -64,8 +58,6 @@ const Login = (props) => {
             </div>
         </div>
     );
-
 };
-
 
 export default connect()(Login);

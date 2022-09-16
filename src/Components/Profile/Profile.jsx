@@ -1,6 +1,5 @@
 
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
@@ -9,8 +8,6 @@ import { Button,Image,Text,Card, Input } from '@mantine/core';
 import "./Profile.css";
 
 const Perfil = (props) => {
-
-    let navigate = useNavigate();
 
     const [pokes, setPokes] = useState([])
 
@@ -25,7 +22,6 @@ const Perfil = (props) => {
 
         mostrar();
     }, []);
-
     
     useEffect(() => {
     }, [pokes])
@@ -74,10 +70,6 @@ const Perfil = (props) => {
             if (res) {
                 setDatosUsuario(body.userName,body.password)
                 setMensaje("datos actualizados con exito")
-                //     setTimeout(() => {
-                //         window.location.reload();
-
-                //     }, 2000);
             }else {
                 setMensaje("hubo un problema")
             }
@@ -89,10 +81,9 @@ const Perfil = (props) => {
 
     const mostrar = async () => {
 
-        let _id = props.credentials.user._id
+        let _id = props.credentials.user?._id
 
         try {
-
             let res = await axios.post(`http://localhost:5000/users/mostrar/${_id}`,);
             setPokes(res.data);
         } catch (error) {
@@ -118,12 +109,12 @@ const Perfil = (props) => {
                     {
                         pokes.map(results => {
                             return (
-                                <Card shadow="sm" p="lg" radius="md" withBorder className='card'>
+                                <Card shadow="sm" p="lg" key={results.id} radius="md" withBorder className='card'>
                                 <Card.Section>
                                     <Image
                                         src={results.imagen}
                                         height={160}
-                                        alt=""
+                                        alt="pokemon"
                                     />
                                 </Card.Section>
                                 <Text size="sm" color="dimmed">

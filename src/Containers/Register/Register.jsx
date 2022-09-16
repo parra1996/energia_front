@@ -10,11 +10,7 @@ import './Register.css';
 
 const Register = () => {
 
-    // const notification = useNotifications();
-
     let navigate = useNavigate();
-
-    //Hooks
 
     const [datosUsuario, setDatosUsuario] = useState({
         userName: "", password: "", password2: ""
@@ -39,7 +35,6 @@ const Register = () => {
     const registrame = async () => {
 
         setMsgError("");
-        let error = "";
 
         // let arrayCampos = Object.entries(datosUsuario);
 
@@ -65,8 +60,8 @@ const Register = () => {
                 setMsgError("Registrado")
 
                 setTimeout(() => {
-                    navigate('/');
-                }, 3000);
+                    navigate('/login');
+                }, 2000);
             }
 
 

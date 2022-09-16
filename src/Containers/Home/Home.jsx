@@ -67,9 +67,6 @@ const Home = (props) => {
             }
     }
 
-    let disponible = props.credentials.user.pokemons.length;
-   
-
     return (
         <div className='home'>
             <div className="lado_izq">
@@ -77,7 +74,7 @@ const Home = (props) => {
                 {
                     pokemones.map((datica) => {
                         return (
-                            <Card shadow="sm" p="lg" radius="md" withBorder className='card'>
+                            <Card shadow="sm" p="lg" key={datica.id} radius="md" withBorder className='card'>
                                 <Card.Section>
                                     <Image
                                         src={datica.sprites.front_default}

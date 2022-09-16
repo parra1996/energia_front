@@ -1,13 +1,11 @@
 .home {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 
-    width: 100vw;
-    height: 100vh;
 
-    background-color: beige;
+    background-color: rgb(108, 163, 242);
 }
 
 .lado_izq {
@@ -17,11 +15,10 @@
     justify-content: center;
     align-items: center;
 
-
     height: auto;
-    width: 50%;
+    width: 53em;
 
-    background-color: beige;
+border-style: solid;
 }
 .lado_der {
 
@@ -31,9 +28,35 @@
     align-items: center;
 
     height: auto;
-    width: 50%;
+    width: 53em;
 
-    background-color: beige;
+border-style: solid;
+
+
+}
+
+.arriba {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 50%;
+    width: 100%;
+
+    background-color: yellow;
+}
+
+.abajo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 50%;
+    width: 100%;
+
+    background-color: pink;
 }
 
 #boton {

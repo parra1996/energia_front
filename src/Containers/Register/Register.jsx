@@ -78,9 +78,9 @@ const Register = () => {
     return (
         <div className='register'>
 
-            <Input variant="default" style={{ padding: '.5em' }} name="userName" placeholder="userName" color='teal' onChange={(e) => { rellenarDatos(e) }} />
-            <Input variant="default" style={{ padding: '.5em' }} name="password" placeholder="password" color='teal' onChange={(e) => { rellenarDatos(e) }} />
-            <Input variant="default" style={{ padding: '.5em' }} name="password2" placeholder="password2" color='teal' onChange={(e) => { rellenarDatos(e) }} />
+            <Input variant="default" className='input' name="userName" placeholder="userName" color='teal' onChange={(e) => { rellenarDatos(e) }} />
+            <Input variant="default" className='input' name="password" placeholder="password" color='teal' onChange={(e) => { rellenarDatos(e) }} />
+            <Input variant="default" className='input' name="password2" placeholder="password2" color='teal' onChange={(e) => { rellenarDatos(e) }} />
             <Button className='boton' onClick={() => registrame()}>
                 registrame
             </Button> <br />

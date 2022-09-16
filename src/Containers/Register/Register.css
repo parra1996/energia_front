@@ -7,7 +7,11 @@
     height: 54.7em;
     width: 100vw;
 
-    background-color: bisque;
+    background-image: url(../../img/poke.jpg);
+    background-size: cover;
 }
 
-/*  */
+.input {
+    padding: 0.5em;
+}
+

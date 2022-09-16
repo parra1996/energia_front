@@ -10,13 +10,13 @@ import { Button, Card, Text, Image } from '@mantine/core';
 const Home = (props) => {
 
     const [pokemones, setPokemones] = useState([]);
-    const [msjerror, setMsjerror] = useState("");
+    const [msj, setMsj] = useState("");
+    const [msjerr, setMsjerr] = useState("");
 
     useEffect(() => {
-
-        traer();
+        traer()
     }, []);
-
+   
     const traer = () => {
 
         try {
@@ -64,7 +64,11 @@ const Home = (props) => {
                 let res = await axios.post("http://localhost:5000/users/atrapar", body);
     
                 if (res) {
-                    console.log("lo atrape perro")
+                    console.log("atrapado")
+                    setMsj("POKEMON ATRAPADO")
+                    setTimeout(() => {
+                        window.location.reload()
+                    }, 2000);
                 } else {
                     console.log("huno un peo")
                 }
@@ -81,12 +85,11 @@ const Home = (props) => {
 
     return (
         <div className='home'>
-
             <div className="lado_izq">
-                {
+            {msj}
+            {
                     pokemones.map((datica) => {
                         return (
-
                             <Card shadow="sm" p="lg" radius="md" withBorder className='card'>
                                 <Card.Section>
                                     <Image
@@ -104,24 +107,17 @@ const Home = (props) => {
                                     velocidad:{datica.stats[5].base_stat} <br />
                                     defensa:{datica.stats[2].base_stat} <br />
                                 </Text>
-
-                                <Button variant="light" color="teal" fullWidth mt="md" radius="md" onClick={() => adquirir(datica)}>
+                                <Button variant="light" color="yellow" fullWidth mt="md" radius="md" onClick={() => adquirir(datica)}>
                                     atrapar
                                 </Button>
                             </Card>
                         )
                     })
-
                 }
-                {/* <div id="boton" onClick={() => traer()}>traer pokes</div> */}
             </div>
-
             <div className="lado_der">
-                <Profile />
+                <Profile/>
             </div>
-
-
-
         </div>
     )
 }

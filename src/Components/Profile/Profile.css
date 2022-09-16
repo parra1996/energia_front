@@ -1,17 +1,32 @@
-.mostrar {
-
-    background-color: red;
-
-    height: 2em;
-    width: 2em;
-}
-
 .perfil {
-    display: wrap;
-    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
     height: auto;
     width: 50%;
+}
+
+.datos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 13em;
+    width: 100%;
+
+}
+
+.pokes {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    height: auto;
+    width: 50em;
+
+
 }

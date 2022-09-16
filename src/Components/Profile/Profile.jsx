@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { MODIFY_CREDENTIALS } from '../../redux/types';
 import axios from 'axios';
 
-import { Button,Image,Text,Card } from '@mantine/core';
+import { Button,Image,Text,Card, Input } from '@mantine/core';
 
 import "./Profile.css";
 
@@ -17,6 +17,9 @@ const Perfil = (props) => {
         claveAnterior: undefined,
         claveNueva: undefined,
     })
+    const [pokes, setPokes] = useState([])
+
+    const [mensaje, setMensaje] = useState("")
 
     //Hooks
     const [datosUsuario, setDatosUsuario] = useState({
@@ -24,29 +27,24 @@ const Perfil = (props) => {
         password: ''
     });
 
-    const [pokes, setPokes] = useState([])
+    useEffect(() => {
 
-    // const rellenarDatos = (e) => {
-    //     setDatosUsuario({
-    //         ...datosUsuario,
-    //         [e.target.name]: e.target.value
-    //     })
-    // };
+        mostrar();
+    }, []);
 
-    const rellenarDatos2 = (e) => {
+    
+    useEffect(() => {
+    }, [pokes])
+    
+    useEffect(() => {
+    }, [datosUsuario])
+    
+    const rellenarDatos = (e) => {
         setDatosUsuario({
             ...datosUsuario,
             [e.target.name]: e.target.value
         })
     };
-
-    useEffect(() => {
-        // mostrar(props.credentials.user._id);
-    }, [])
-
-    useEffect(() => {
-    }, [props.credentials.user])
-
     // const liberarPoke = async (id) => {
 
     //     try {
@@ -70,12 +68,8 @@ const Perfil = (props) => {
 
     const updateUser = async () => {
 
-        let config = {
-            headers: { Authorization: `Bearer ${props.credentials.token}` }
-        };
-
         let body = {
-            id: props.credentials.user._id,
+            _id: props.credentials.user._id,
             userName: datosUsuario.userName,
             password: datosUsuario.password,
         }
@@ -83,13 +77,17 @@ const Perfil = (props) => {
         console.log(body)
         try {
             //Hacemos el update en la base de datos
-            let res = await axios.put(`http://localhost:5000/users/`, body, config);
+            let res = await axios.put(`http://localhost:5000/users/`, body);
             if (res) {
-                console.log("datos cambiados")
+                console.log(res, "esto es res")
+                setDatosUsuario(body.userName,body.password)
+                setMensaje("datos actualizados con exito")
                 //     setTimeout(() => {
                 //         window.location.reload();
 
                 //     }, 2000);
+            }else {
+                console.log("hubo un problema")
             }
         } catch (error) {
             console.log(error)
@@ -113,28 +111,20 @@ const Perfil = (props) => {
 
     }
 
-    // let disponible = props.credentials.user.pokemons?.length;
-
-    // switch(disponible){
-    //     case disponible < 1:
-    // }
-
     if (props.credentials.token) {
         return (
             <div className="perfil">
                 <div className="datos">
                     <div className=''>
-                        {/* <ListGroup variant="flush"> */}
                         <div variant='success'><b>usuario: </b>{props.credentials.user?.userName}</div>
-                        <div variant='success'><b>usuario nuevo:</b><input className='inp' type="text" name="userName" id="userName" title="userName" placeholder="usuario nuevo" autoComplete="off" onChange={(e) => { rellenarDatos2(e) }} /></div>
-                        <div variant='success'><b>Contraseña nueva:</b><input className='inp' type="text" name="password" id="password" title="password" placeholder="contraseña nueva" autoComplete="off" onChange={(e) => { rellenarDatos2(e) }} /></div>
-                        {/* </ListGroup><br /> */}
-                        <Button color="demo" onClick={() => updateUser()}>Actualizar datos</Button>
+                        <div variant='success'><b>usuario nuevo:</b><Input className='inp' type="text" name="userName" id="userName" title="userName" placeholder="usuario nuevo" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} /></div>
+                        <div variant='success'><b>Contraseña nueva:</b><Input className='inp' type="text" name="password" id="password" title="password" placeholder="contraseña nueva" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} /></div>
+                        <br/>
+                        <Button color="yellow" onClick={() => updateUser()}>Actualizar datos</Button>
+                        {mensaje}
                     </div>
                 </div>
-                <div className="">
-
-                    <Button color="teal" onClick={() => mostrar(props.credentials.user._id)}></Button>
+                <div className="pokes">
                     {
                         pokes.map(results => {
                             return (
@@ -160,14 +150,10 @@ const Perfil = (props) => {
                         })
                     }
                 </div>
-
-                <div>
-
-                </div>
             </div>
         )
     } else {
-        <p>logueate </p>
+        <p>logueate</p>
     }
 }
 

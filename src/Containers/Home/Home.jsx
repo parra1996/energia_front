@@ -9,6 +9,7 @@ import { Button, Card, Text, Image } from '@mantine/core';
 
 const Home = (props) => {
 
+
     const [pokemones, setPokemones] = useState([]);
     const [msj, setMsj] = useState("");
     const [msjerr, setMsjerr] = useState("");
@@ -16,6 +17,11 @@ const Home = (props) => {
     useEffect(() => {
         traer()
     }, []);
+
+    useEffect(() => {
+    }, [pokemones]);
+
+
 
     const traer = () => {
 
@@ -54,58 +60,121 @@ const Home = (props) => {
             defensa: datica.stats[2].base_stat
         }
 
-            try {
-                let res = await axios.post("http://localhost:5000/users/atrapar", body);
-                if (res) {
-                    setMsj("POKEMON ATRAPADO")
-                    setTimeout(() => {
-                        window.location.reload()
-                    }, 2000);
-                } else {
-                    setMsjerr("tienes muchos pokemons")
-                }
-            } catch (error) {
-                setMsjerr(error)
+        try {
+            let res = await axios.post("http://localhost:5000/users/atrapar", body);
+            if (res) {
+                setMsj("POKEMON ATRAPADO")
+                setTimeout(() => {
+                    window.location.reload()
+                }, 2000);
+            } else {
+                setMsjerr("tienes muchos pokemons")
             }
+        } catch (error) {
+            setMsjerr(error)
+        }
     }
 
-    return (
-        <div className='home'>
-            <div className="lado_izq">
-                {msj}
-                {
-                    pokemones.map((datica) => {
-                        return (
-                            <Card shadow="sm" p="lg" key={datica.id} radius="md" withBorder className='card'>
-                                <Card.Section>
-                                    <Image
-                                        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${datica.id}.png`}
-                                        height={160}
-                                        alt="poke"
-                                    />
-                                </Card.Section>
-                                <Text size="sm" color="dimmed">
-                                    nombre:{datica.name} <br />
-                                    elemento:{datica.types[0].type.name} <br />
-                                    ataque:{datica.stats[1].base_stat} <br />
-                                    ataque especial:{datica.stats[3].base_stat} <br />
-                                    vida:{datica.stats[0].base_stat} <br />
-                                    velocidad:{datica.stats[5].base_stat} <br />
-                                    defensa:{datica.stats[2].base_stat} <br />
-                                </Text>
-                                <Button variant="light" color="yellow" fullWidth mt="md" radius="md" onClick={() => adquirir(datica)}>
-                                    atrapar
-                                </Button>
-                            </Card>
-                        )
-                    })
-                }
+    const probabilidad = (datica) => {
+
+        // let num ;
+        let cantidad = props.credentials.user.pokemons?.length
+        let numeroRandom = Math.random() * 10;
+        let numeroRandom2 = Math.floor(numeroRandom)
+
+        if (cantidad < 2) {
+            console.log("entramos")
+            adquirir(datica);
+        } else {
+            console.log("entramos al else")
+            setMsj("fallaste al atraparlo")
+        }
+
+        console.log(cantidad)
+
+    }
+
+
+    if (!props.credentials.user) {
+        return (
+            <div className='home'>
+                <div className="lado_izq">
+                    {msj}
+                    {
+                        pokemones.map((datica) => {
+                            return (
+                                <div key={datica.id}>
+                                    <Card shadow="sm" p="lg" radius="md" withBorder className='card'>
+                                        <Card.Section>
+                                            <Image
+                                                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${datica.id}.png`}
+                                                height={160}
+                                                alt="poke"
+                                            />
+                                        </Card.Section>
+                                        <Text size="sm" color="dimmed">
+                                            nombre:{datica.name} <br />
+                                            elemento:{datica.types[0].type.name} <br />
+                                            ataque:{datica.stats[1].base_stat} <br />
+                                            ataque especial:{datica.stats[3].base_stat} <br />
+                                            vida:{datica.stats[0].base_stat} <br />
+                                            velocidad:{datica.stats[5].base_stat} <br />
+                                            defensa:{datica.stats[2].base_stat} <br />
+                                        </Text>
+
+                                    </Card>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+                <div className="lado_der">
+                    <Profile />
+                </div>
             </div>
-            <div className="lado_der">
-                <Profile />
+        )
+    } else {
+        return (
+            <div className='home'>
+                <div className="lado_izq">
+                    {msj}
+                    {
+                        pokemones.map((datica) => {
+                            return (
+                                <div key={datica.id}>
+                                    <Card shadow="sm" p="lg" radius="md" withBorder className='card'>
+                                        <Card.Section>
+                                            <Image
+                                                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${datica.id}.png`}
+                                                height={160}
+                                                alt="poke"
+                                            />
+                                        </Card.Section>
+                                        <Text size="sm" color="dimmed">
+                                            nombre:{datica.name} <br />
+                                            elemento:{datica.types[0].type.name} <br />
+                                            ataque:{datica.stats[1].base_stat} <br />
+                                            ataque especial:{datica.stats[3].base_stat} <br />
+                                            vida:{datica.stats[0].base_stat} <br />
+                                            velocidad:{datica.stats[5].base_stat} <br />
+                                            defensa:{datica.stats[2].base_stat} <br />
+                                        </Text>
+                                        <Button variant="light" color="yellow" fullWidth mt="md" radius="md" onClick={() => probabilidad(datica)}>
+                                            atrapar
+                                        </Button>
+                                    </Card>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+                <div className="lado_der">
+                    <Profile />
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
+
 }
 
 export default connect((state) => ({

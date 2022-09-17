@@ -21,12 +21,14 @@ const Home = (props) => {
 
         try {
 
-            axios.get("https://pokeapi.co/api/v2/pokemon?limit=20")
+            axios.get("https://pokeapi.co/api/v2/pokemon?limit=30")
                 .then(resp => {
-                    for (let i = 0; i < resp.data.results.length; i++) {
+                    let cantidad = resp.data.results.length;
+                    for (let i = 0; i < cantidad; i++) {
                         axios.get(resp.data.results[i].url)
                             .then(result => {
                                 setPokemones(prevArray => [...prevArray, result.data])
+                                console.log(result.data.sprites.other.official_artwork)
                             })
                     }
                 })
@@ -77,9 +79,9 @@ const Home = (props) => {
                             <Card shadow="sm" p="lg" key={datica.id} radius="md" withBorder className='card'>
                                 <Card.Section>
                                     <Image
-                                        src={datica.sprites.front_default}
+                                        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${datica.id}.png`}
                                         height={160}
-                                        alt="Norway"
+                                        alt="poke"
                                     />
                                 </Card.Section>
                                 <Text size="sm" color="dimmed">

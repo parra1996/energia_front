@@ -18,7 +18,9 @@
     height: auto;
     width: 53em;
 
-border-style: solid;
+    border-right: solid;
+
+
 }
 .lado_der {
 
@@ -30,7 +32,6 @@ border-style: solid;
     height: auto;
     width: 53em;
 
-border-style: solid;
 
 
 }

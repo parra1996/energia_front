@@ -28,7 +28,7 @@ const Home = (props) => {
         let _id = props.credentials.user?._id
 
         try {
-            let res = await axios.post(`http://localhost:5000/users/mostrar/${_id}`,);
+            let res = await axios.post(`https://jppl-energia.herokuapp.com/users/mostrar/${_id}`,);
             setCapturados(res.data);
             console.log(res.data, "ESTOS SON TUS POKES")
         } catch (error) {
@@ -73,7 +73,7 @@ const Home = (props) => {
         }
 
         try {
-            let res = await axios.post("http://localhost:5000/users/atrapar", body);
+            let res = await axios.post("https://jppl-energia.herokuapp.com/users/atrapar", body);
             if (res) {
                 setMsjerr(res.data)
                 mostrar()

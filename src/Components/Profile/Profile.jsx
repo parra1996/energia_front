@@ -69,7 +69,7 @@ const Perfil = (props) => {
         let _id = props.credentials.user?._id
 
         try {
-            let res = await axios.post(`http://localhost:5000/users/mostrar/${_id}`,);
+            let res = await axios.post(`https://jppl-energia.herokuapp.com/users/mostrar/${_id}`,);
             setPokes(res.data);
             console.log(res.data, "ESTOS SON TUS POKES")
         } catch (error) {

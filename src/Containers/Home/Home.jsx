@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-
+import { useState, createContext , useEffect} from "react";
 import './Home.css';
 import axios from 'axios';
 import Profile from '../../Components/Profile/Profile';
 import { connect } from 'react-redux';
 import { Button, Card, Text, Image } from '@mantine/core';
 
-
+export const PokeContext = createContext()
 const Home = (props) => {
-
+    
 
     const [pokemones, setPokemones] = useState([]);
     const [msjerr, setMsjerr] = useState("");
+    const [capturados,setCapturados] = useState([])
 
     useEffect(() => {
         traer()
@@ -22,6 +22,20 @@ const Home = (props) => {
 
     }, [pokemones]);
 
+    const mostrar = async () => {
+
+
+        let _id = props.credentials.user?._id
+
+        try {
+            let res = await axios.post(`http://localhost:5000/users/mostrar/${_id}`,);
+            setCapturados(res.data);
+            console.log(res.data, "ESTOS SON TUS POKES")
+        } catch (error) {
+            setMsjerr(error)
+        }
+
+    }
 
     const traer = () => {
 
@@ -59,13 +73,11 @@ const Home = (props) => {
         }
 
         try {
-            let res = await axios.post("https://jppl-energia.herokuapp.com/users/atrapar", body);
+            let res = await axios.post("http://localhost:5000/users/atrapar", body);
             if (res) {
                 setMsjerr(res.data)
-                console.log(res.data,"ESTO ES RESSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
-                setTimeout(() => {
-                    // window.location.reload()
-                }, 2000);
+                mostrar()
+                console.log(res.data, "ESTO ES RESSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
             } else {
                 setMsjerr("tienes muchos pokemons")
             }
@@ -102,8 +114,7 @@ const Home = (props) => {
         return (
             <div className='home'>
                 <div className="lado_izq">
-                     {msjerr} <br/>
-                     {/* <Button color="yellow" onClick={()=> traer()}>Traer Pokes</Button> */}
+                    {msjerr} <br />
                     {
                         pokemones.map((datica) => {
                             return (
@@ -141,7 +152,7 @@ const Home = (props) => {
         return (
             <div className='home'>
                 <div className="lado_izq">
-                    {msjerr} 
+                    {msjerr}
                     {
                         pokemones.map((datica) => {
                             return (
@@ -173,7 +184,9 @@ const Home = (props) => {
                     }
                 </div>
                 <div className="lado_der">
-                    <Profile />
+                    <PokeContext.Provider value={capturados}>
+                        <Profile />
+                    </PokeContext.Provider>
                 </div>
             </div>
         )

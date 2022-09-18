@@ -1,13 +1,14 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { connect } from 'react-redux';
+import { PokeContext } from '../../Containers/Home/Home';
 import axios from 'axios';
-
 import { Button,Image,Text,Card, Input } from '@mantine/core';
-
 import "./Profile.css";
 
 const Perfil = (props) => {
+
+    const capturados = useContext(PokeContext) 
 
     const [pokes, setPokes] = useState([])
 
@@ -19,8 +20,9 @@ const Perfil = (props) => {
     });
 
     useEffect(() => {
+        console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
         mostrar();
-    }, []);
+    }, [capturados]);
     
     useEffect(() => {
     }, [pokes])
@@ -34,27 +36,6 @@ const Perfil = (props) => {
             [e.target.name]: e.target.value
         })
     };
-    const liberarPoke = async (id) => {
-
-        try {
-
-            let config = {
-                headers: { Authorization: `Bearer ${props.credentials.token}` }
-            };
-
-            let res = axios.delete(`https://jppl-energia.herokuapp.com/users/`, config)
-            if (res) {
-            console.log("poke eliminado con exito")
-
-                setTimeout(() => {
-                    window.location.reload();
-
-                }, 2000);
-            }
-        } catch (error) {
-            console.log("error");
-        }
-    }
 
     const updateUser = async () => {
 
@@ -82,12 +63,13 @@ const Perfil = (props) => {
 
     }
 
-    const mostrar = async () => {
+  const mostrar = async () => {
+
 
         let _id = props.credentials.user?._id
 
         try {
-            let res = await axios.post(`https://jppl-energia.herokuapp.com/users/mostrar/${_id}`,);
+            let res = await axios.post(`http://localhost:5000/users/mostrar/${_id}`,);
             setPokes(res.data);
             console.log(res.data, "ESTOS SON TUS POKES")
         } catch (error) {

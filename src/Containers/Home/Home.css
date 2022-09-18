@@ -5,6 +5,7 @@
     align-items: flex-start;
 
 
+
     background-color: rgb(108, 163, 242);
 }
 
@@ -60,7 +61,7 @@
     background-color: pink;
 }
 
-#boton {
+.boton {
     height: 2em;
     width: 3em;
 

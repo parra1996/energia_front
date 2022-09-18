@@ -11,16 +11,16 @@ const Home = (props) => {
 
 
     const [pokemones, setPokemones] = useState([]);
-    const [msj, setMsj] = useState("");
     const [msjerr, setMsjerr] = useState("");
 
     useEffect(() => {
         traer()
+        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
     }, []);
 
     useEffect(() => {
-    }, [pokemones]);
 
+    }, [pokemones]);
 
 
     const traer = () => {
@@ -34,7 +34,7 @@ const Home = (props) => {
                         axios.get(resp.data.results[i].url)
                             .then(result => {
                                 setPokemones(prevArray => [...prevArray, result.data])
-                                console.log(result.data.sprites.other.official_artwork)
+                                console.log(result.data)
                             })
                     }
                 })
@@ -45,12 +45,10 @@ const Home = (props) => {
     }
     const adquirir = async (datica) => {
 
-        // disponible = props.credentials.user.pokemons.length;
-
         let body = {
             _id: props.credentials.user._id,
             id_pokemon: datica.id,
-            imagen: datica.sprites.front_default,
+            imagen: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${datica.id}.png`,
             nombre: datica.name,
             elemento: datica.types[0].type.name,
             vida: datica.stats[0].base_stat,
@@ -61,11 +59,12 @@ const Home = (props) => {
         }
 
         try {
-            let res = await axios.post("http://localhost:5000/users/atrapar", body);
+            let res = await axios.post("https://jppl-energia.herokuapp.com/users/atrapar", body);
             if (res) {
-                setMsj("POKEMON ATRAPADO")
+                setMsjerr(res.data)
+                console.log(res.data,"ESTO ES RESSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
                 setTimeout(() => {
-                    window.location.reload()
+                    // window.location.reload()
                 }, 2000);
             } else {
                 setMsjerr("tienes muchos pokemons")
@@ -74,32 +73,37 @@ const Home = (props) => {
             setMsjerr(error)
         }
     }
+    // const boton = () => {
+    //    let res =  document.getElementById("bootn");
+    //    res.style.display = "none"
+    // }
 
-    const probabilidad = (datica) => {
+    // const probabilidad = (datica) => {
 
-        // let num ;
-        let cantidad = props.credentials.user.pokemons?.length
-        let numeroRandom = Math.random() * 10;
-        let numeroRandom2 = Math.floor(numeroRandom)
+    //     // let num ;
+    //     let cantidad = props.credentials.user.pokemons?.length
+    //     let numeroRandom = Math.random() * 10;
+    //     let numeroRandom2 = Math.floor(numeroRandom)
 
-        if (cantidad < 2) {
-            console.log("entramos")
-            adquirir(datica);
-        } else {
-            console.log("entramos al else")
-            setMsj("fallaste al atraparlo")
-        }
+    //     if (cantidad < 2) {
+    //         console.log("entramos")
+    //         adquirir(datica);
+    //     } else {
+    //         console.log("entramos al else")
+    //         setMsj("fallaste al atraparlo")
+    //     }
 
-        console.log(cantidad)
+    //     console.log(cantidad, "ESTO ES CANTIDAD")
 
-    }
+    // }
 
 
     if (!props.credentials.user) {
         return (
             <div className='home'>
                 <div className="lado_izq">
-                    {msj}
+                     {msjerr} <br/>
+                     {/* <Button color="yellow" onClick={()=> traer()}>Traer Pokes</Button> */}
                     {
                         pokemones.map((datica) => {
                             return (
@@ -137,7 +141,7 @@ const Home = (props) => {
         return (
             <div className='home'>
                 <div className="lado_izq">
-                    {msj}
+                    {msjerr} 
                     {
                         pokemones.map((datica) => {
                             return (
@@ -159,7 +163,7 @@ const Home = (props) => {
                                             velocidad:{datica.stats[5].base_stat} <br />
                                             defensa:{datica.stats[2].base_stat} <br />
                                         </Text>
-                                        <Button variant="light" color="yellow" fullWidth mt="md" radius="md" onClick={() => probabilidad(datica)}>
+                                        <Button variant="light" color="yellow" fullWidth mt="md" radius="md" onClick={() => adquirir(datica)}>
                                             atrapar
                                         </Button>
                                     </Card>

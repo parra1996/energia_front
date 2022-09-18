@@ -52,7 +52,7 @@ const Register = () => {
         }
         try {
 
-            let resultado = await axios.post("http://localhost:5000/users/", body);
+            let resultado = await axios.post("https://jppl-energia.herokuapp.com/users/", body);
 
             if (!resultado.data.error) {
 
@@ -76,7 +76,7 @@ const Register = () => {
             <Input variant="default" className='input' name="userName" placeholder="userName" color='teal' onChange={(e) => { rellenarDatos(e) }} />
             <Input variant="default" className='input' name="password" placeholder="password" color='teal' onChange={(e) => { rellenarDatos(e) }} />
             <Input variant="default" className='input' name="password2" placeholder="password2" color='teal' onChange={(e) => { rellenarDatos(e) }} />
-            <Button className='boton' onClick={() => registrame()}>
+            <Button  onClick={() => registrame()}>
                 registrame
             </Button> <br />
             <p> {msgError} </p>

@@ -19,7 +19,6 @@ const Perfil = (props) => {
     });
 
     useEffect(() => {
-
         mostrar();
     }, []);
     
@@ -35,26 +34,27 @@ const Perfil = (props) => {
             [e.target.name]: e.target.value
         })
     };
-    // const liberarPoke = async (id) => {
+    const liberarPoke = async (id) => {
 
-    //     try {
-    //         let config = {
-    //             headers: { Authorization: `Bearer ${props.credentials.token}` }
-    //         };
+        try {
 
-    //         let res = axios.delete(`http://localhost:5000/users/`, config)
-    //         if (res) {
-    //         console.log("poke eliminado con exito")
+            let config = {
+                headers: { Authorization: `Bearer ${props.credentials.token}` }
+            };
 
-    //             setTimeout(() => {
-    //                 window.location.reload();
+            let res = axios.delete(`https://jppl-energia.herokuapp.com/users/`, config)
+            if (res) {
+            console.log("poke eliminado con exito")
 
-    //             }, 2000);
-    //         }
-    //     } catch (error) {
-    //         console.log("error");
-    //     }
-    // }
+                setTimeout(() => {
+                    window.location.reload();
+
+                }, 2000);
+            }
+        } catch (error) {
+            console.log("error");
+        }
+    }
 
     const updateUser = async () => {
 
@@ -66,10 +66,13 @@ const Perfil = (props) => {
 
         try {
             //Hacemos el update en la base de datos
-            let res = await axios.put(`http://localhost:5000/users/`, body);
+            let res = await axios.put(`https://jppl-energia.herokuapp.com/users/`, body);
             if (res) {
                 setDatosUsuario(body.userName,body.password)
                 setMensaje("datos actualizados con exito")
+                setTimeout(() => {
+                    window.location.reload()
+                }, 1000);
             }else {
                 setMensaje("hubo un problema")
             }
@@ -84,8 +87,9 @@ const Perfil = (props) => {
         let _id = props.credentials.user?._id
 
         try {
-            let res = await axios.post(`http://localhost:5000/users/mostrar/${_id}`,);
+            let res = await axios.post(`https://jppl-energia.herokuapp.com/users/mostrar/${_id}`,);
             setPokes(res.data);
+            console.log(res.data, "ESTOS SON TUS POKES")
         } catch (error) {
             setMensaje(error)
         }
@@ -109,7 +113,7 @@ const Perfil = (props) => {
                     {
                         pokes.map(results => {
                             return (
-                                <Card shadow="sm" p="lg" key={results.id} radius="md" withBorder className='card'>
+                                <Card shadow="sm" p="lg" key={results._id} radius="md" withBorder className='card'>
                                 <Card.Section>
                                     <Image
                                         src={results.imagen}

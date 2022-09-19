@@ -49,6 +49,10 @@ const Perfil = (props) => {
             };
         }  
 
+        let config = {
+            headers: { Authorization: `Bearer ${props.credentials.token}` }
+        };
+
         let body = {
             _id: props.credentials.user._id,
             userName: datosUsuario.userName,
@@ -56,7 +60,7 @@ const Perfil = (props) => {
         }
 
         try {
-            let res = await axios.put(`https://jppl-energia.herokuapp.com/users/`, body);
+            let res = await axios.put(`https://jppl-energia.herokuapp.com/users/`, body,config);
             if (res) {
                 setMensaje("datos actualizados con exito")
                 props.dispatch({ type: MODIFY_CREDENTIALS, payload: datosUsuario });

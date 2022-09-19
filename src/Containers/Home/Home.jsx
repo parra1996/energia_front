@@ -62,8 +62,12 @@ const Home = (props) => {
             defensa: datica.stats[2].base_stat
         }
 
+        let config = {
+            headers: { Authorization: `Bearer ${props.credentials.token}` }
+        };
+
         try {
-            let res = await axios.post(`https://jppl-energia.herokuapp.com/users/atrapar`, body);
+            let res = await axios.post(`https://jppl-energia.herokuapp.com/users/atrapar`, body,config);
             if (res) {
                 setMsjerr(res.data)
                 mostrar()

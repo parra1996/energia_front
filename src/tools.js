@@ -24,3 +24,7 @@ export const checkError = (type, value) => {
             return "ok";
     }
 };
+
+export const BASE_URL = "http://localhost:5000" ; 
+
+// https://jppl-energia.herokuapp.com

@@ -23,22 +23,17 @@ const Home = (props) => {
 
     const mostrar = async () => {
 
-
         let _id = props.credentials.user?._id
-
         try {
             let res = await axios.post(`https://jppl-energia.herokuapp.com/users/mostrar/${_id}`,);
             setCapturados(res.data);
         } catch (error) {
             setMsjerr(error)
         }
-
     }
 
     const traer = () => {
-
         try {
-
             axios.get("https://pokeapi.co/api/v2/pokemon?limit=30")
                 .then(resp => {
                     let cantidad = resp.data.results.length;
@@ -52,10 +47,8 @@ const Home = (props) => {
         } catch (error) {
             setMsjerr(error);
         }
-
     }
     const adquirir = async (datica) => {
-
         let body = {
             _id: props.credentials.user._id,
             id_pokemon: datica.id,
@@ -70,7 +63,7 @@ const Home = (props) => {
         }
 
         try {
-            let res = await axios.post("https://jppl-energia.herokuapp.com/users/atrapar", body);
+            let res = await axios.post(`https://jppl-energia.herokuapp.com/users/atrapar`, body);
             if (res) {
                 setMsjerr(res.data)
                 mostrar()
@@ -81,9 +74,6 @@ const Home = (props) => {
             setMsjerr(error)
         }
     }
- 
-
-
 
     if (!props.credentials.user) {
         return (
@@ -111,7 +101,6 @@ const Home = (props) => {
                                             velocidad:{datica.stats[5].base_stat} <br />
                                             defensa:{datica.stats[2].base_stat} <br />
                                         </Text>
-
                                     </Card>
                                 </div>
                             )

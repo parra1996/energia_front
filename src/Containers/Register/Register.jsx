@@ -61,11 +61,10 @@ const Register = () => {
         }
         try {
 
-            let resultado = await axios.post("https://jppl-energia.herokuapp.com/users/", body);
+            let resultado = await axios.post(`https://jppl-energia.herokuapp.com/users/`, body);
 
             if (!resultado.data.error) {
 
-                // setMsgError(resultado.data.error);
                 setMsgError("Registrado")
 
                 setTimeout(() => {

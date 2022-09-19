@@ -5,6 +5,8 @@ import { PokeContext } from '../../Containers/Home/Home';
 import axios from 'axios';
 import { Button,Image,Text,Card, Input } from '@mantine/core';
 import "./Profile.css";
+import { checkError } from '../../tools';
+import { MODIFY_CREDENTIALS } from '../../redux/types';
 
 const Perfil = (props) => {
 
@@ -26,10 +28,6 @@ const Perfil = (props) => {
     useEffect(() => {
     }, [pokes])
     
-    useEffect(() => {
-
-    }, [datosUsuario])
-    
     const rellenarDatos = (e) => {
         setDatosUsuario({
             ...datosUsuario,
@@ -38,6 +36,18 @@ const Perfil = (props) => {
     };
 
     const updateUser = async () => {
+
+        let arrayCampos = Object.entries(datosUsuario);
+        let error = "";
+
+        for (let elemento of arrayCampos) {
+            error = checkError(elemento[0], elemento[1]);
+
+            if (error !== "ok") {
+                setMensaje(error);
+                return;
+            };
+        }  
 
         let body = {
             _id: props.credentials.user._id,
@@ -48,18 +58,15 @@ const Perfil = (props) => {
         try {
             let res = await axios.put(`https://jppl-energia.herokuapp.com/users/`, body);
             if (res) {
-                setDatosUsuario(body.userName,body.password)
                 setMensaje("datos actualizados con exito")
-                setTimeout(() => {
-                    window.location.reload()
-                }, 1000);
+                props.dispatch({ type: MODIFY_CREDENTIALS, payload: datosUsuario });
+
             }else {
                 setMensaje("hubo un problema")
             }
         } catch (error) {
             setMensaje(error)
         }
-
     }
 
   const mostrar = async () => {
@@ -70,15 +77,14 @@ const Perfil = (props) => {
         } catch (error) {
             setMensaje(error)
         }
-
     }
 
-    if (props.credentials.token) {
+    if (props.credentials?.token) {
         return (
             <div className="perfil">
                 <div className="datos">
                     <div className=''>
-                        <div variant='success'><b>usuario: </b>{props.credentials.user.userName}</div>
+                        <div variant='success'><b>usuario viejo: </b>{props.credentials.user.userName}</div>
                         <div variant='success'><b>usuario nuevo:</b><Input className='inp' type="text" name="userName" id="userName" title="userName" placeholder="usuario nuevo" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} /></div>
                         <div variant='success'><b>Contraseña nueva:</b><Input className='inp' type="text" name="password" id="password" title="password" placeholder="contraseña nueva" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} /></div>
                         <br/>
@@ -88,9 +94,9 @@ const Perfil = (props) => {
                 </div>
                 <div className="pokes">
                     {
-                        pokes.map(results => {
+                        pokes?.map(results => {
                             return (
-                                <Card shadow="sm" p="lg" key={results._id} radius="md" withBorder className='card'>
+                                <Card shadow="sm" p="lg" key={results.id} radius="md" withBorder className='card'>
                                 <Card.Section>
                                     <Image
                                         src={results.imagen}

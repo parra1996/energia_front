@@ -20,7 +20,6 @@ const Perfil = (props) => {
     });
 
     useEffect(() => {
-        console.log("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB")
         mostrar();
     }, [capturados]);
     
@@ -28,6 +27,7 @@ const Perfil = (props) => {
     }, [pokes])
     
     useEffect(() => {
+
     }, [datosUsuario])
     
     const rellenarDatos = (e) => {
@@ -46,7 +46,6 @@ const Perfil = (props) => {
         }
 
         try {
-            //Hacemos el update en la base de datos
             let res = await axios.put(`https://jppl-energia.herokuapp.com/users/`, body);
             if (res) {
                 setDatosUsuario(body.userName,body.password)
@@ -64,14 +63,10 @@ const Perfil = (props) => {
     }
 
   const mostrar = async () => {
-
-
         let _id = props.credentials.user?._id
-
         try {
             let res = await axios.post(`https://jppl-energia.herokuapp.com/users/mostrar/${_id}`,);
             setPokes(res.data);
-            console.log(res.data, "ESTOS SON TUS POKES")
         } catch (error) {
             setMensaje(error)
         }
@@ -83,7 +78,7 @@ const Perfil = (props) => {
             <div className="perfil">
                 <div className="datos">
                     <div className=''>
-                        <div variant='success'><b>usuario: </b>{props.credentials.user?.userName}</div>
+                        <div variant='success'><b>usuario: </b>{props.credentials.user.userName}</div>
                         <div variant='success'><b>usuario nuevo:</b><Input className='inp' type="text" name="userName" id="userName" title="userName" placeholder="usuario nuevo" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} /></div>
                         <div variant='success'><b>Contraseña nueva:</b><Input className='inp' type="text" name="password" id="password" title="password" placeholder="contraseña nueva" autoComplete="off" onChange={(e) => { rellenarDatos(e) }} /></div>
                         <br/>

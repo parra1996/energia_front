@@ -15,7 +15,6 @@ const Home = (props) => {
 
     useEffect(() => {
         traer()
-        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
     }, []);
 
     useEffect(() => {
@@ -30,7 +29,6 @@ const Home = (props) => {
         try {
             let res = await axios.post(`https://jppl-energia.herokuapp.com/users/mostrar/${_id}`,);
             setCapturados(res.data);
-            console.log(res.data, "ESTOS SON TUS POKES")
         } catch (error) {
             setMsjerr(error)
         }
@@ -48,7 +46,6 @@ const Home = (props) => {
                         axios.get(resp.data.results[i].url)
                             .then(result => {
                                 setPokemones(prevArray => [...prevArray, result.data])
-                                console.log(result.data)
                             })
                     }
                 })
@@ -77,7 +74,6 @@ const Home = (props) => {
             if (res) {
                 setMsjerr(res.data)
                 mostrar()
-                console.log(res.data, "ESTO ES RESSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
             } else {
                 setMsjerr("tienes muchos pokemons")
             }
@@ -85,29 +81,8 @@ const Home = (props) => {
             setMsjerr(error)
         }
     }
-    // const boton = () => {
-    //    let res =  document.getElementById("bootn");
-    //    res.style.display = "none"
-    // }
+ 
 
-    // const probabilidad = (datica) => {
-
-    //     // let num ;
-    //     let cantidad = props.credentials.user.pokemons?.length
-    //     let numeroRandom = Math.random() * 10;
-    //     let numeroRandom2 = Math.floor(numeroRandom)
-
-    //     if (cantidad < 2) {
-    //         console.log("entramos")
-    //         adquirir(datica);
-    //     } else {
-    //         console.log("entramos al else")
-    //         setMsj("fallaste al atraparlo")
-    //     }
-
-    //     console.log(cantidad, "ESTO ES CANTIDAD")
-
-    // }
 
 
     if (!props.credentials.user) {

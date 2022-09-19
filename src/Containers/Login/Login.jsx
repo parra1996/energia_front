@@ -29,7 +29,6 @@ const Login = (props) => {
                 password: datosUsuario.password
             }
 
-            console.log(body)
             let resultado = await axios.post("https://jppl-energia.herokuapp.com/users/login", body);
 
             if (resultado.data === "Usuario o contraseña inválido") {
@@ -40,7 +39,7 @@ const Login = (props) => {
                 navigate("/");
             }
         } catch (error) {
-            console.log(error)
+            setMsgError2(error)
         }
     };
 

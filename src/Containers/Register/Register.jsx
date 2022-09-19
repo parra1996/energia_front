@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-// import { checkError } from '../../tools';
+import { checkError } from '../../tools';
 
-import { Input } from '@mantine/core';
-import { Button } from '@mantine/core';
+import { Button, Input, Badge } from '@mantine/core';
 
 import './Register.css';
 
@@ -36,7 +35,8 @@ const Register = () => {
 
         setMsgError("");
 
-        // let arrayCampos = Object.entries(datosUsuario);
+        let arrayCampos = Object.entries(datosUsuario);
+        let error = "";
 
         if (datosUsuario.password !== datosUsuario.password2) {
 
@@ -45,6 +45,15 @@ const Register = () => {
         } else {
             setMsgError("");
         }
+
+        for (let elemento of arrayCampos) {
+            error = checkError(elemento[0], elemento[1]);
+
+            if (error !== "ok") {
+                setMsgError(error);
+                return;
+            };
+        }    
 
         let body = {
             userName: datosUsuario.userName,
@@ -79,7 +88,7 @@ const Register = () => {
             <Button  onClick={() => registrame()}>
                 registrame
             </Button> <br />
-            <p> {msgError} </p>
+            <Badge color="indigo" size="xl" variant="filled">{msgError}</Badge>
         </div >
     )
 }
